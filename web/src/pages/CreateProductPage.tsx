@@ -2,9 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import ProductForm from '../components/ProductForm';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
-import { createProduct } from '../api/product.api';
+import { createProduct } from '../api/menu.api';
 
-const CreateProductPage = () => {
+const CreateMenuItemPage = () => {
   const token = useSelector((state: RootState) => state.auth.token);
   const navigate = useNavigate();
 
@@ -26,4 +26,4 @@ const CreateProductPage = () => {
   );
 };
 
-export default CreateProductPage;
+export default CreateMenuItemPage;

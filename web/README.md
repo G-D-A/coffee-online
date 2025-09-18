@@ -1,11 +1,11 @@
-# Online Store Web (Frontend)
+# CoffeeOnline Web (Frontend)
 
 ## Overview
 
-This is the **React frontend** for the Online Store system. It allows users to:
+This is the **React frontend** for CoffeeOnline. It allows users to:
 
 - Register and log in
-- View a product catalog
+- View public coffee menu
 - Add products to the cart
 - Remove products from the cart
 - Checkout and place orders
@@ -14,8 +14,7 @@ This is the **React frontend** for the Online Store system. It allows users to:
 
 Admin users can also:
 
-- Add new products
-- Edit or delete existing products
+- Admin: add/edit/delete menu items
 
 > 💡 The app is built as an SPA using **React + TypeScript**, and styled with **Tailwind CSS**.
 
@@ -51,7 +50,7 @@ web/
 ## ✅ Prerequisites
 
 - **Node.js** 22+
-- **Backend** must be running at `http://localhost:3000` (or adjust `baseURL` in `src/api/*.ts`)
+- **Backend** at `http://localhost:3000` (or change `baseURL` in `src/api/*.ts`)
 ---
 
 ## 🛠️ How to Run Locally
@@ -67,4 +66,4 @@ Starts the development server on the http://localhost:3001
 ## Notes
 - JWT token is stored in localStorage
 - Protected routes are guarded via ProtectedRoute component
-- Admin controls (/products/new, /edit) require auth
+- Admin controls (/menu/new, /menu/:id/edit) require auth

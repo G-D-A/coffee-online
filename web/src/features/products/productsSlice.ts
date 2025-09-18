@@ -6,6 +6,7 @@ interface Product {
   price: number;
   stock: number;
   image?: string;
+  description?: string;
 }
 
 interface ProductState {

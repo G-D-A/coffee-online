@@ -5,7 +5,7 @@ import {
   createProduct,
   getProductById,
   updateProduct,
-} from '../api/product.api';
+} from '../api/menu.api';
 import { RootState } from '../store';
 
 const ProductFormPage = () => {
@@ -26,17 +26,27 @@ const ProductFormPage = () => {
 
   useEffect(() => {
     if (isEdit) {
-      getProductById(id!, token!)
-        .then((res) => setFormData(res.data))
+      getProductById(id!)
+        .then((res) => {
+          const d = res.data;
+          setFormData({
+            name: d.name || '',
+            price: d.price || 0,
+            stock: d.stock || 0,
+            description: d.description || '',
+            image: d.image || d.imgurl || '',
+          });
+        })
         .catch(() => setError('Failed to fetch product'));
     }
   }, [id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    const key = name === 'imgurl' ? 'image' : name;
     setFormData((prev) => ({
       ...prev,
-      [name]: name === 'price' || name === 'stock' ? Number(value) : value,
+      [key]: key === 'price' || key === 'stock' ? Number(value) : value,
     }));
   };
 
@@ -51,7 +61,7 @@ const ProductFormPage = () => {
       } else {
         await createProduct(formData, token);
       }
-      navigate('/products');
+      navigate('/menu');
     } catch {
       setError('Failed to save product');
     }
@@ -59,7 +69,7 @@ const ProductFormPage = () => {
 
   return (
     <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded shadow">
-      <h2 className="text-2xl font-bold mb-4">{isEdit ? 'Edit' : 'Create'} Product</h2>
+      <h2 className="text-2xl font-bold mb-4 text-coffee-espresso">{isEdit ? 'Edit' : 'Create'} Menu Item</h2>
 
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
@@ -71,14 +81,14 @@ const ProductFormPage = () => {
           value={formData.name}
           onChange={handleChange}
           required
-          className="w-full border p-2 rounded"
+          className="w-full border border-coffee-latte p-2 rounded focus:outline-none focus:ring-2 focus:ring-coffee-caramel"
         />
         <textarea
           name="description"
           placeholder="Description"
           value={formData.description}
           onChange={handleChange}
-          className="w-full border p-2 rounded"
+          className="w-full border border-coffee-latte p-2 rounded focus:outline-none focus:ring-2 focus:ring-coffee-caramel"
         />
         <input
           type="number"
@@ -87,7 +97,7 @@ const ProductFormPage = () => {
           value={formData.price}
           onChange={handleChange}
           required
-          className="w-full border p-2 rounded"
+          className="w-full border border-coffee-latte p-2 rounded focus:outline-none focus:ring-2 focus:ring-coffee-caramel"
         />
         <input
           type="number"
@@ -96,21 +106,21 @@ const ProductFormPage = () => {
           value={formData.stock}
           onChange={handleChange}
           required
-          className="w-full border p-2 rounded"
+          className="w-full border border-coffee-latte p-2 rounded focus:outline-none focus:ring-2 focus:ring-coffee-caramel"
         />
         <input
           type="text"
-          name="image"
+          name="imgurl"
           placeholder="Image URL"
           value={formData.image}
           onChange={handleChange}
-          className="w-full border p-2 rounded"
+          className="w-full border border-coffee-latte p-2 rounded focus:outline-none focus:ring-2 focus:ring-coffee-caramel"
         />
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="bg-coffee-caramel text-white px-4 py-2 rounded hover:bg-coffee-cocoa"
         >
-          {isEdit ? 'Update' : 'Create'} Product
+          {isEdit ? 'Update' : 'Create'} Item
         </button>
       </form>
     </div>

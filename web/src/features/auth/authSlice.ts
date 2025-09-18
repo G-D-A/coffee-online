@@ -4,6 +4,7 @@ import { login, register, getProfile } from '../../api/auth.api';
 interface User {
   _id: string;
   email: string;
+  role?: 'user' | 'admin';
 }
 
 interface AuthState {

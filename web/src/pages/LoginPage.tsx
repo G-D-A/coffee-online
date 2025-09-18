@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../store';
 import { loginUser } from '../features/auth/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const location = useLocation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -17,7 +18,9 @@ const LoginPage = () => {
     try {
       const resultAction = await dispatch(loginUser({ email, password }));
       if (loginUser.fulfilled.match(resultAction)) {
-        navigate('/products');
+        const params = new URLSearchParams(location.search);
+        const redirect = params.get('redirect');
+        navigate(redirect ? decodeURIComponent(redirect) : '/menu');
       } else {
         const payload = resultAction.payload as string;
         setError(payload || 'Login failed');
@@ -33,7 +36,7 @@ const LoginPage = () => {
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
-      <h2 className="text-2xl mb-4 font-semibold">Login</h2>
+      <h2 className="text-2xl mb-4 font-semibold text-coffee-espresso">Login</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="email"
@@ -52,7 +55,7 @@ const LoginPage = () => {
         {error && <div className="text-red-500">{error}</div>}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+          className="w-full bg-coffee-caramel text-white py-2 rounded hover:bg-coffee-cocoa"
         >
           {auth.status === 'loading' ? 'Logging in...' : 'Login'}
         </button>

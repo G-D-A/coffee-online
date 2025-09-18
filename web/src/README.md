@@ -1,8 +1,8 @@
-# Online Store Web (Frontend)
+# CoffeeOnline Web (Frontend)
 
 ## Overview
 
-This is the **React frontend** for the Online Store system. It allows users to:
+This is the **React frontend** for the CoffeeOnline system. It allows users to:
 
 - Register and log in
 - View a product catalog
